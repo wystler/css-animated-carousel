@@ -4,6 +4,17 @@
     display:flex;
     flex-direction: column;
     justify-content: center;
+    background-color: rgb(209, 209, 209);
+}
+
+.container {
+    width:100%;
+    height:50%;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    position:absolute;
+    background-color:rgb(168, 168, 168);
 }
 
 .carousel {
