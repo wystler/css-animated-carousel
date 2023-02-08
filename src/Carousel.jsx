@@ -3,9 +3,9 @@ import { Slide } from "./Slide.jsx"
 
 export const Carousel = () => {
 
-    const rotationTime = 5
     const colours = ["red", "orange", "yellow", "yellowgreen", "green", "cyan", "blue", "purple", "magenta", "pink"]
-    const [numberOfSlides, setNumberOfSlides] = useState(10) 
+    const [numberOfSlides, setNumberOfSlides] = useState(3) 
+    const [rotationTime, setRotationTime] = useState(5)
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
 
@@ -17,7 +17,7 @@ export const Carousel = () => {
                     return <Slide 
                         key={index}
                         index={index}
-                        rotationTime={rotationTime}
+                        rotationTime={(11-rotationTime)/2}
                         numberOfSlides={numberOfSlides}
                         slideContents={slideContents}
                         animationPlayState={paused}
@@ -36,7 +36,18 @@ export const Carousel = () => {
                         setNumberOfSlides(+event.target.value)
                     }}
                 ></input>
-                <input className="inputRange" type="range"></input>
+
+                <input 
+                    className="inputRange rotationTime"
+                    type="range"
+                    min="1"
+                    max="10"
+                    value={rotationTime}
+                    onChange={(event) => {
+                        setRotationTime(+event.target.value)
+                    }}
+                ></input>
+
                 <input className="inputRange" type="range"></input>
                 <button 
                     onClick={() => {

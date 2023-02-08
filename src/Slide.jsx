@@ -25,7 +25,7 @@ export const Slide = (props) => {
             animationPlayState:animationPlayState,
             backgroundColor:slideContents[(index+(count*numberOfSlides))%slideContents.length]
         }}
-        >{animationPlayState}
+        >
     </div>
     )
 }
