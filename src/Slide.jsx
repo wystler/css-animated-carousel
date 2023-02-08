@@ -1,10 +1,13 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export const Slide = (props) => {
 
-    const {index, rotationTime, numberOfSlides} = props
+    const {index, rotationTime, numberOfSlides, slideContents, animationPlayState} = props
     const [count, setCount] = useState(1)
-    const slides = ["red", "orange", "yellow", "yellowgreen", "green", "cyan", "blue", "purple", "magenta", "pink"]     //10
+
+    useEffect(() => {
+
+    },[numberOfSlides])
 
     const animationDelay = -rotationTime+index*(rotationTime/numberOfSlides)+0.05
     //  -rotationtime fills the carousel before render,
@@ -18,10 +21,11 @@ export const Slide = (props) => {
         onAnimationIteration={() => setCount(count + 1)}
         style={{
             animationDelay:`${animationDelay}s`,
-            animationDuration:{rotationTime},
-            backgroundColor:slides[(index+(count*numberOfSlides))%slides.length]
+            animationDuration:`${rotationTime}s`,
+            animationPlayState:animationPlayState,
+            backgroundColor:slideContents[(index+(count*numberOfSlides))%slideContents.length]
         }}
-        >
+        >{animationPlayState}
     </div>
     )
 }

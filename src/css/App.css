@@ -46,7 +46,7 @@
     width:100px;
     height:100px;
     position:absolute;
-    animation: spin 5s infinite linear;
+    animation: spin infinite linear;
 }
 
 @keyframes spin {
