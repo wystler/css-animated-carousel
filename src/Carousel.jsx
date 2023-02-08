@@ -4,16 +4,29 @@ import { Slide } from "./Slide.jsx"
 export const Carousel = () => {
 
     const colours = ["red", "orange", "yellow", "yellowgreen", "green", "cyan", "blue", "purple", "magenta", "pink"]
-    const [numberOfSlides, setNumberOfSlides] = useState(3) 
+    const [numberOfSlides, setNumberOfSlides] = useState(5) 
     const [rotationTime, setRotationTime] = useState(5)
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
+    const [slideArray, setSlideArray] = useState([])
+    const [draw, setDraw] = useState(0)
+
+    const handleNumberOfSlidesChange = (event) => {
+            setNumberOfSlides(+event.target.value)
+        }
+
+    //  draw is used to trigger a rerender when the number of slides updates
+    //  to stop new render overlapping with previous one
+    useEffect(() => {
+        setDraw(draw + 1)
+        setSlideArray(Array(numberOfSlides).fill())
+    },[numberOfSlides, rotationTime])
 
     return (
         <div className="container">
 
-            <div className="carousel">
-                {Array(numberOfSlides).fill().map((slide, index) => {
+            <div className="carousel" key={draw}>
+                {slideArray.map((slide, index) => {
                     return <Slide 
                         key={index}
                         index={index}
@@ -32,9 +45,7 @@ export const Carousel = () => {
                     min="2"
                     max="10"
                     value={numberOfSlides}
-                    onChange={(event) => {
-                        setNumberOfSlides(+event.target.value)
-                    }}
+                    onChange={handleNumberOfSlidesChange}
                 ></input>
 
                 <input 
