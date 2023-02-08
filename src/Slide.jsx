@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 export const Slide = (props) => {
 
-    const {index, rotationTime, numberOfSlides, slideContents, animationPlayState} = props
+    const {index, rotationTime, numberOfSlides, slideContents, animationPlayState, animationDirection} = props
     const [count, setCount] = useState(1)
 
     useEffect(() => {
@@ -23,6 +23,7 @@ export const Slide = (props) => {
             animationDelay:`${animationDelay}s`,
             animationDuration:`${rotationTime}s`,
             animationPlayState:animationPlayState,
+            animationDirection:animationDirection,
             backgroundColor:slideContents[(index+(count*numberOfSlides))%slideContents.length]
         }}
         >

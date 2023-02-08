@@ -8,19 +8,27 @@ export const Carousel = () => {
     const [rotationTime, setRotationTime] = useState(5)
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
+    const [direction, setDirection] = useState("normal")
     const [slideArray, setSlideArray] = useState([])
     const [draw, setDraw] = useState(0)
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    //  draw is used to trigger a rerender when the number of slides updates
+    //  to stop new render overlapping with previous one
+
+    useEffect(() => {
+        setDraw(draw + 1)
+        setSlideArray(Array(numberOfSlides).fill())
+    },[numberOfSlides, rotationTime, direction])
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
 
     const handleNumberOfSlidesChange = (event) => {
             setNumberOfSlides(+event.target.value)
         }
-
-    //  draw is used to trigger a rerender when the number of slides updates
-    //  to stop new render overlapping with previous one
-    useEffect(() => {
-        setDraw(draw + 1)
-        setSlideArray(Array(numberOfSlides).fill())
-    },[numberOfSlides, rotationTime])
+  
 
     return (
         <div className="container">
@@ -34,6 +42,7 @@ export const Carousel = () => {
                         numberOfSlides={numberOfSlides}
                         slideContents={slideContents}
                         animationPlayState={paused}
+                        animationDirection={direction}
                         />
                 })}
             </div>
@@ -43,7 +52,7 @@ export const Carousel = () => {
                     className="inputRange numberOfSlides" 
                     type="range"
                     min="2"
-                    max="10"
+                    max="20"
                     value={numberOfSlides}
                     onChange={handleNumberOfSlidesChange}
                 ></input>
@@ -65,6 +74,12 @@ export const Carousel = () => {
                         paused === "running" ? setPaused("paused"): setPaused("running")
                         }}>
                     pause
+                </button>
+                <button
+                    onClick={() => {
+                        direction === "normal" ? setDirection("reverse") : setDirection("normal")
+                    }}>
+                    reverse
                 </button>
             </div>
 
