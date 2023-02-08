@@ -6,6 +6,8 @@ export const Carousel = () => {
     const colours = ["red", "orange", "yellow", "yellowgreen", "green", "cyan", "blue", "purple", "magenta", "pink"]
     const [numberOfSlides, setNumberOfSlides] = useState(5) 
     const [rotationTime, setRotationTime] = useState(5)
+    const [slideScale, setSlideScale] = useState(1)
+    // eslint-disable-next-line
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
     const [direction, setDirection] = useState("normal")
@@ -18,7 +20,7 @@ export const Carousel = () => {
     //  to stop new render overlapping with previous one
 
     useEffect(() => {
-        setDraw(draw + 1)
+        setDraw(draw => draw + 1)
         setSlideArray(Array(numberOfSlides).fill())
     },[numberOfSlides, rotationTime, direction])
 
@@ -40,6 +42,7 @@ export const Carousel = () => {
                         index={index}
                         rotationTime={(11-rotationTime)/2}
                         numberOfSlides={numberOfSlides}
+                        slideScale={slideScale}
                         slideContents={slideContents}
                         animationPlayState={paused}
                         animationDirection={direction}
@@ -68,7 +71,18 @@ export const Carousel = () => {
                     }}
                 ></input>
 
-                <input className="inputRange" type="range"></input>
+                <input 
+                    className="inputRange slideScale" 
+                    type="range"
+                    min="0"
+                    max="2"
+                    step="0.1"
+                    value={slideScale}
+                    onChange={(event) => {
+                        setSlideScale(+event.target.value)
+                    }}
+                    ></input>
+
                 <button 
                     onClick={() => {
                         paused === "running" ? setPaused("paused"): setPaused("running")
