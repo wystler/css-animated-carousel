@@ -2,12 +2,15 @@ import { useState, useEffect } from "react"
 
 export const Slide = (props) => {
 
-    const {index, rotationTime, numberOfSlides, slideContents, animationPlayState, animationDirection, slideScale} = props
+    const {index, rotationTime, numberOfSlides, slideContents, animationPlayState, animationDirection, slideScale, slideRoll} = props
     const [count, setCount] = useState(1)
 
     useEffect(() => {
         document.documentElement.style.setProperty(`--slideScale`, slideScale)
-    },[slideScale])
+        slideRoll ? 
+        document.documentElement.style.setProperty(`--slideRoll`, `360deg`) : 
+        document.documentElement.style.setProperty(`--slideRoll`, `0deg`)
+    },[slideScale, slideRoll])
 
     const animationDelay = -rotationTime+index*(rotationTime/numberOfSlides)+0.05
     //  -rotationtime fills the carousel before render,

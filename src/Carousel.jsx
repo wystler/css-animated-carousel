@@ -11,6 +11,7 @@ export const Carousel = () => {
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
     const [direction, setDirection] = useState("normal")
+    const [slideRoll, setSlideRoll] = useState(false)
     const [slideArray, setSlideArray] = useState([])
     const [draw, setDraw] = useState(0)
 
@@ -41,6 +42,7 @@ export const Carousel = () => {
                         key={index}
                         index={index}
                         rotationTime={(11-rotationTime)/2}
+                        slideRoll={slideRoll}
                         numberOfSlides={numberOfSlides}
                         slideScale={slideScale}
                         slideContents={slideContents}
@@ -89,11 +91,19 @@ export const Carousel = () => {
                         }}>
                     pause
                 </button>
+
                 <button
                     onClick={() => {
                         direction === "normal" ? setDirection("reverse") : setDirection("normal")
                     }}>
                     reverse
+                </button>
+
+                <button
+                    onClick={() => {
+                        slideRoll ? setSlideRoll(false) : setSlideRoll(true)
+                    }}>
+                    roll
                 </button>
             </div>
 
