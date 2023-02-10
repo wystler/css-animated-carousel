@@ -81,6 +81,7 @@ export const Carousel = () => {
                     type="range"
                     min="1"
                     max="11"
+                    step="0.01"
                     value={rotationTime}
                     onChange={(event) => {
                         setRotationTime(+event.target.value)
