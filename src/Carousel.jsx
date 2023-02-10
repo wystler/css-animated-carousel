@@ -5,12 +5,13 @@ export const Carousel = () => {
 
     const colours = ["red", "orange", "yellow", "yellowgreen", "green", "cyan", "blue", "purple", "magenta", "pink"]
     const [numberOfSlides, setNumberOfSlides] = useState(5) 
-    const [rotationTime, setRotationTime] = useState(5)
+    const [rotationTime, setRotationTime] = useState(6)
     const [slideScale, setSlideScale] = useState(1)
     // eslint-disable-next-line
     const [slideContents, setSlideContents] = useState(colours)
     const [paused, setPaused] = useState("running")
     const [direction, setDirection] = useState("normal")
+    const [tilt, setTilt] = useState(0)
     const [slideRoll, setSlideRoll] = useState(false)
     const [slideArray, setSlideArray] = useState([])
     const [draw, setDraw] = useState(0)
@@ -23,7 +24,7 @@ export const Carousel = () => {
     useEffect(() => {
         setDraw(draw => draw + 1)
         setSlideArray(Array(numberOfSlides).fill())
-    },[numberOfSlides, rotationTime, direction])
+    },[numberOfSlides, direction, rotationTime])
 
     /////////////////////////////////////////////////////////////////////////////////////
 
@@ -36,23 +37,36 @@ export const Carousel = () => {
     return (
         <div className="container">
 
-            <div className="carousel" key={draw}>
+            <div className="carousel" key={draw} style={{ perspectiveOrigin:`0 ${tilt}px`}}>
                 {slideArray.map((slide, index) => {
                     return <Slide 
                         key={index}
                         index={index}
-                        rotationTime={(11-rotationTime)/2}
+                        rotationTime={(100/(rotationTime**2))}
                         slideRoll={slideRoll}
                         numberOfSlides={numberOfSlides}
                         slideScale={slideScale}
                         slideContents={slideContents}
                         animationPlayState={paused}
                         animationDirection={direction}
-                        />
+                    />
                 })}
             </div>
 
+
             <div className="inputs">
+
+                <input 
+                    className="inputRange tilt"
+                    type="range"
+                    min="-1000"
+                    max="1000"
+                    value={tilt}
+                    onChange={(event) => {
+                        setTilt(event.target.value)
+                    }}
+                ></input>
+
                 <input 
                     className="inputRange numberOfSlides" 
                     type="range"
@@ -66,7 +80,7 @@ export const Carousel = () => {
                     className="inputRange rotationTime"
                     type="range"
                     min="1"
-                    max="10"
+                    max="11"
                     value={rotationTime}
                     onChange={(event) => {
                         setRotationTime(+event.target.value)

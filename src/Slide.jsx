@@ -27,7 +27,8 @@ export const Slide = (props) => {
             animationDuration:`${rotationTime}s`,
             animationPlayState:animationPlayState,
             animationDirection:animationDirection,
-            backgroundColor:slideContents[(index+(count*numberOfSlides))%slideContents.length]
+            backgroundColor:slideContents[(index+(count*numberOfSlides))%slideContents.length],
+        
         }}
         >
     </div>
