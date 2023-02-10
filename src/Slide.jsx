@@ -23,6 +23,7 @@ export const Slide = (props) => {
         className="slide"
         onAnimationIteration={() => setCount(count + 1)}
         style={{
+            minWidth:`${400*Math.tan(Math.PI/numberOfSlides)}px`,
             animationDelay:`${animationDelay}s`,
             animationDuration:`${rotationTime}s`,
             animationPlayState:animationPlayState,
