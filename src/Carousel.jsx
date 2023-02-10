@@ -37,7 +37,7 @@ export const Carousel = () => {
     return (
         <div className="container">
 
-            <div className="carousel" key={draw} style={{ perspectiveOrigin:`0 ${tilt}px`}}>
+            <div className="carousel" key={draw} style={{ perspectiveOrigin:`50% ${tilt}px`}}>
                 {slideArray.map((slide, index) => {
                     return <Slide 
                         key={index}
@@ -99,19 +99,26 @@ export const Carousel = () => {
                     }}
                     ></input>
 
+                <div>
+                <button
+                    onClick={() => {
+                        if(direction === "normal")  setDirection("reverse")
+                    }}>
+                    reverse
+                </button>
                 <button 
                     onClick={() => {
                         paused === "running" ? setPaused("paused"): setPaused("running")
                         }}>
                     pause
                 </button>
-
                 <button
                     onClick={() => {
-                        direction === "normal" ? setDirection("reverse") : setDirection("normal")
+                        if(direction === "reverse")  setDirection("normal")
                     }}>
-                    reverse
+                    forward
                 </button>
+                </div>
 
                 <button
                     onClick={() => {
@@ -119,6 +126,7 @@ export const Carousel = () => {
                     }}>
                     roll
                 </button>
+                
             </div>
 
         </div>
