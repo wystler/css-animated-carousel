@@ -70,7 +70,7 @@ export const Carousel = () => {
                 <input 
                     className="inputRange numberOfSlides" 
                     type="range"
-                    min="2"
+                    min="3"
                     max="20"
                     value={numberOfSlides}
                     onChange={handleNumberOfSlidesChange}
